@@ -1,12 +1,12 @@
 import React from 'react';
-import { Writer } from '../../model/Writer';
+import { User } from '../../models/User';
 import { destroy } from '../../api/LibraryClient';
 // import { Route, Redirect, Switch} from 'react-router'
 
 
 interface ILoginComponentProps {
-  updateWriter: (user:Writer) => void;
-  // emptyMembers: (user:Writer) =>void;
+  updateUser: (user:User) => void;
+  // emptyMembers: (user:User) =>void;
 }
 
 
@@ -15,14 +15,14 @@ export class Logout extends React.Component<ILoginComponentProps> {
   logout = async (event: any) =>  {
     event.preventDefault();
     try {
-      const loggedInWriter : any = null;
+      const loggedInUser : any = null;
       // const members : any = null;
-      this.props.updateWriter(loggedInWriter); 
+      this.props.updateUser(loggedInUser); 
       await destroy(); 
       // this.props.emptyMembers(members) 
       // const notLogedIn = true;
       // window.location.replace('/hello');
-      console.log(loggedInWriter);
+      console.log(loggedInUser);
       // return(<Switch><Route><Redirect to="/hello" /></Route></Switch>);
     } catch (error) {
       console.log('not logged In')

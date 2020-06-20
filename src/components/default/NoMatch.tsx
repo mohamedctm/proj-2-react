@@ -1,18 +1,18 @@
 import React from 'react';
 import {Switch, Route, Redirect} from 'react-router';
 import { destroy } from '../../api/LibraryClient';
-import {Writer} from '../../model/Writer';
+import {User} from '../../models/User';
 
 interface ILoginComponentProps {
-    updateWriter: (user:Writer) => void;
-    // emptyMembers: (user:Writer) =>void;
+    updateUser: (user:User) => void;
+    // emptyMembers: (user:User) =>void;
   }
 
 export default class NoMatch extends React.Component<ILoginComponentProps,any> {
 
     componentDidMount(){
-        const loggedInWriter : any = null;
-      this.props.updateWriter(loggedInWriter); 
+        const loggedInUser : any = null;
+      this.props.updateUser(loggedInUser); 
       destroy();
     }
 

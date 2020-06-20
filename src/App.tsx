@@ -1,22 +1,25 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import { NavbarComponent } from './components/NavbarComponent';
-import { Writer } from './model/Writer';
+import { User } from './models/User';
 import { LoginComponent } from './components/default/LoginComponent';
 import Welcome from './components/default/Welcome';
 import {Logout} from './components/default/Logout';
 import Home from './components/default/Home';
 import NoMatch from './components/default/NoMatch';
-import PostComponent from './components/postComponenet';
-import WriterComponent from './components/writerComponenet';
+import Posts from './components/pComponent';
+import Editor from './components/eComponent';
+import Control from './components/cComponent';
+import { NewPost } from './components/views/createPost';
+import { NewUser } from './components/views/createUser';
 
 
 
 
 interface IAppState {
-  loggedInWriter: Writer | null;
+  loggedInUser: User | null;
   id:number|any;
-  // members: Writer | null;
+  // members: User | null;
 }
 
 export class App extends React.Component<any, IAppState> {
@@ -24,17 +27,17 @@ export class App extends React.Component<any, IAppState> {
   constructor(props: any) {
     super(props);
     this.state = {
-      loggedInWriter: null,
+      loggedInUser: null,
       id: '',
       // members :null,
     }
   }
 
-  updateWriter = (user:Writer) => {
+  updateUser = (user:User) => {
     this.setState({
-      loggedInWriter: user,
+      loggedInUser: user,
     })
-    const cooid = this.state.loggedInWriter?.writerid;
+    const cooid = this.state.loggedInUser?.writerid;
     this.setState({
       id: cooid,
     })
@@ -46,42 +49,51 @@ export class App extends React.Component<any, IAppState> {
   //   })
   // }
 
-  removeWriter = (u: any) => {
+  removeUser = (u: any) => {
     this.setState({
-      loggedInWriter: null,
+      loggedInUser: null,
     })
   }
 
   render() {
-    const G = this.state.loggedInWriter;
+    const G = this.state.loggedInUser;
     return (
     <>
     <Router>
       <div className="fixed">
-    <Welcome permission={G?.permission || 'visitor'} username={G?.firstname || 'Guest'}/>
-    <NavbarComponent Writer = {this.state.loggedInWriter}/>
+    <Welcome role={G?.permission || 'visitor'} username={G?.firstname || 'Guest'}/>
+    <NavbarComponent User = {this.state.loggedInUser} role={G?.permission}/>
      </div>
      <div className="wrap">
       <Switch>
       <Route path="/hello" exact>
           <Home />
         </Route>
+        {G && <Route path="/create" exact>
+          <NewPost id={G?.writerid} />
+        </Route>}
+        {G && <Route path="/register" exact>
+          <NewUser id={G?.writerid} />
+        </Route>}
         <Route path="/" exact>
           <Home />
         </Route>  
-        { <Route exact path="/login">
-          <LoginComponent  updateWriter={this.updateWriter} />
+        {  <Route exact path="/login">
+          <LoginComponent  updateUser={this.updateUser} />
         </Route>}
         { G && <Route exact path="/logout">
-          <Logout updateWriter={this.removeWriter}/>
+          <Logout updateUser={this.removeUser}/>
         </Route>}
-        { G && <Route path='/posts' exact >
-          <PostComponent userRole={G.permission} id={this.state.id} xid={G.writerid}  />
+        { G &&  <Route path='/posts' exact >
+          <Posts userRole={G.permission} id={this.state.id} writerid={G?.writerid}  />
           </Route>}
-      { G && <Route path='/writers'  exact >
-        <WriterComponent userRole={G?.permission} userId={G?.writerid} />
+        { (G?.permission === 2) &&  <Route path='/editor' exact >
+          <Editor userRole={G.permission} id={this.state.id} writerid={G?.writerid}   />
+          </Route>}
+      { (G?.permission === 1) && <Route path='/control'  exact >
+        <Control userRole={G.permission} id={this.state.id} writerid={G?.writerid} />
         </Route>}
-        <Route><NoMatch updateWriter={this.updateWriter} /></Route>
+        <Route><NoMatch updateUser={this.updateUser} /></Route>
       </Switch>
       </div>
     </Router>
