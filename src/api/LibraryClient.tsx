@@ -3,11 +3,12 @@ import { User } from '../models/User';
 
 import { FailedLoginError } from '../errors/FailedLoginError';
 import { Post } from '../models/Post';
+import { Inbox } from '../models/Inbox';
 
 
 const libraryClient = axios.create({
   // baseURL: 'http://54.174.125.219:3001/',
-  baseURL: 'http://localhost:5000/',
+  baseURL: 'http://localhost:8081/',
   withCredentials: true,
 });
 /**************/
@@ -192,5 +193,11 @@ export async function login(un: string, pw: string): Promise<User> {
       throw e;
     }
   }
+  
+}
+
+export async function openInbox(inboxNum : number) : Promise<Inbox | any> {
+  const response = await libraryClient.get(`/inboxes/${inboxNum}`);
+  console.log(response.data);
   
 }
