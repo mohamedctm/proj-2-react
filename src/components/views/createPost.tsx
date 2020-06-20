@@ -1,7 +1,8 @@
 import React from 'react';
 import { createPost } from '../../api/LibraryClient';
 import { Route, Switch, Redirect } from 'react-router';
-import { Form, FormGroup, Input, NavLink } from 'reactstrap';
+import { Form, FormGroup, Input } from 'reactstrap';
+import { NavLink } from 'react-router-dom';
 import { Post } from '../../models/Post';
 
 
@@ -108,7 +109,7 @@ export class NewPost extends React.Component<any, any> {
            required/>
            </FormGroup>
            <FormGroup>
-            <textarea name="text" onChange={this.setText}>&nbsp;</textarea>
+            <textarea name="text" onChange={this.setText} value={this.state.text}/>
             
           </FormGroup>
           

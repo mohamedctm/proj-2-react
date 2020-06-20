@@ -1,8 +1,6 @@
 import React from 'react';
-import { posts, myInfo, updateSelf, Allposts } from '../api/LibraryClient';
+import { myInfo, updateSelf, Allposts } from '../api/LibraryClient';
 import { Post } from '../models/Post';
-import { Postview } from './views/viewPost';
-import { NavLink } from 'react-router-dom';
 import { Form, FormGroup, Input } from 'reactstrap';
 import { User } from '../models/User';
 import { Editorview } from './views/viewPostEditor';

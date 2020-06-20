@@ -1,5 +1,5 @@
 import React from 'react';
-import { getPostById, updatePost, Statusposts, unpublish, publish } from '../../api/LibraryClient';
+import { getPostById, updatePost, Statusposts, unpublish, publish, deletingPost } from '../../api/LibraryClient';
 import { FormGroup, Input, Form } from 'reactstrap';
 import { Post } from '../../models/Post';
 
@@ -28,6 +28,7 @@ export  class Editorview extends React.Component<any,any> {
         status1: this.props.status,
         published: this.props.published,
         author: this.props.author,
+        thereIsApost:true,
         
         }
 
@@ -49,6 +50,18 @@ export  class Editorview extends React.Component<any,any> {
     
   }
 
+  deletePost = async (event: any) => {
+    event.preventDefault();
+    console.log(event);
+    
+      const statusz : Post = await deletingPost(this.props.id);
+      this.setState({
+        thereIsApost: false
+      });
+      console.log(statusz);
+  }
+
+
   reject = async (event: any) => {
     event.preventDefault();
     console.log(event);
@@ -58,8 +71,6 @@ export  class Editorview extends React.Component<any,any> {
         status1: "rejected"
       });
       console.log(statusz);
-    
-   
   }
   unpublish = async (event: any) => {
     event.preventDefault();
@@ -177,7 +188,8 @@ export  class Editorview extends React.Component<any,any> {
     render(){
         return(
             <>
-            <div key={Math.floor(Math.random() * 10)} className="box">
+            {this.state.thereIsApost && <div key={Math.floor(Math.random() * 10)} className="box">
+            {(this.state.status1 !== "approved" && this.state.published === 0) &&<button className="deletePost" onClick={this.deletePost}>&times;</button>}
         <div className="boxrow dateFormat">{this.state.author} .. created: {this.state.date1}</div> 
             <div className="boxrow">
             {(this.state.status1 !== "approved" && this.state.published === 0) &&<button className="abutton" onClick={this.approve}>Approve</button>}
@@ -194,7 +206,7 @@ export  class Editorview extends React.Component<any,any> {
             <div className="boxrow">
                 <button onClick={this.enable}>Preview</button>
         {(this.state.published === 0) && <button onClick={this.enableE}>Edit</button>}</div>  
-          </div>
+          </div>}
           {this.state.viewPost && <div className="overlay">
             <span className="close" onClick={this.disable}>&times;</span>
             <div className="viewHolder">

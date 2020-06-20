@@ -160,3 +160,5 @@ div.boxrow{padding-top:10px;order:1;width:100%;margin:.2em;border:none;display:f
                 button.abutton{background:#fff;border:1px solid #00ee00;color:#229922}
                 button.sbutton{background:#fff;border:1px solid #e9e7d2;color:#2f312f}
                 button.pbutton{background:rgb(24, 128, 57);color:#eeffee;padding:.8em}
+                button.deletePost{position:absolute;top:-20px;right:-15px;width:22px;height:22px;background:#ee0000;
+                color:#fff;border:none;line-height:10px;padding:.4em;}

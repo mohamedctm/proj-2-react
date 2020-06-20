@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router';
-import { Form, FormGroup, Input, NavLink } from 'reactstrap';
+import { Form, FormGroup, Input } from 'reactstrap';
+import { NavLink } from 'react-router-dom';
 import { User } from '../../models/User';
 import { madeUser } from '../../api/LibraryClient';
 

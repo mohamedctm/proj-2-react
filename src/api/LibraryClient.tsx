@@ -41,6 +41,12 @@ export async function unpublish(id:number) : Promise<Post[] | any> {
   return response.data;
 }
 
+export async function deletingPost(id:number) : Promise<Post[] | any> {
+  const response = await libraryClient.delete(`/posts/${id}`);
+  console.log('delete post');
+  return response.data;
+}
+
 export async function getPostById(id:number) : Promise<User[] | any> {
   const response = await libraryClient.get(`/posts/${id}`);
   console.log('All posts');
