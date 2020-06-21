@@ -9,7 +9,7 @@ import { Message } from '../models/Message';
 
 const libraryClient = axios.create({
   // baseURL: 'http://54.174.125.219:3001/',
-  baseURL: 'http://localhost:8081/',
+  baseURL: 'http://localhost:3001/',
   withCredentials: true,
 });
 /**************/
