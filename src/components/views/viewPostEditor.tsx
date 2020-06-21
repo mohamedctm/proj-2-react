@@ -46,7 +46,7 @@ export  class Editorview extends React.Component<any,any> {
       this.setState({
         status1: "approved"
       });
-      console.log(statusz);
+      this.props.action()
     
   }
 
@@ -59,6 +59,8 @@ export  class Editorview extends React.Component<any,any> {
         thereIsApost: false
       });
       console.log(statusz);
+      this.props.action()
+
   }
 
 
@@ -70,7 +72,7 @@ export  class Editorview extends React.Component<any,any> {
       this.setState({
         status1: "rejected"
       });
-      console.log(statusz);
+      this.props.action()
   }
   unpublish = async (event: any) => {
     event.preventDefault();
@@ -81,6 +83,8 @@ export  class Editorview extends React.Component<any,any> {
         published: 0
       });
       console.log(statusz);
+      this.props.action()
+
   }
 
   publish = async (event: any) => {
@@ -91,7 +95,7 @@ export  class Editorview extends React.Component<any,any> {
       this.setState({
         published: 1
       });
-      console.log(statusz);
+      this.props.action()
   }
   pending = async (event: any) => {
     event.preventDefault();
@@ -101,7 +105,8 @@ export  class Editorview extends React.Component<any,any> {
       this.setState({
         status1: "pending"
       });
-      console.log(statusz);
+      this.props.action()
+
   }
 
   attemptUpdate = async (event: any) => {
@@ -193,6 +198,7 @@ export  class Editorview extends React.Component<any,any> {
         <div className="boxrow dateFormat">{this.state.author} .. created: {this.state.date1}</div> 
             <div className="boxrow">
             {(this.state.status1 !== "approved" && this.state.published === 0) &&<button className="abutton" onClick={this.approve}>Approve</button>}
+           {/* <button className="abutton" onClick={this.props.action}>refresh</button> */}
             {(this.state.status1 !== "rejected" && this.state.published === 0) &&<button className="rbutton" onClick={this.reject}>Reject</button>}
         {(this.state.status1 !== "pending" && this.state.published === 0) &&<button className="sbutton" onClick={this.pending}>Default</button> }
           </div> 

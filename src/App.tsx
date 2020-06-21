@@ -12,6 +12,7 @@ import Editor from './components/eComponent';
 import Control from './components/cComponent';
 import { NewPost } from './components/views/createPost';
 import { NewUser } from './components/views/createUser';
+import Message from './components/default/messageContainer';
 
 
 
@@ -96,6 +97,8 @@ export class App extends React.Component<any, IAppState> {
         <Route><NoMatch updateUser={this.updateUser} /></Route>
       </Switch>
       </div>
+      
+      {  <Message writerid={G?.writerid}/>}
     </Router>
     </>
     );
