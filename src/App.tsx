@@ -14,6 +14,7 @@ import { NewPost } from './components/views/createPost';
 import { NewUser } from './components/views/createUser';
 import { InboxPage } from './components/views/inboxPage';
 import { ComposeMessage } from './components/views/ComposeMessage';
+import Message from './components/default/messageContainer';
 
 
 
