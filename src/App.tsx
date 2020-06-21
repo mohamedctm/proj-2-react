@@ -106,7 +106,7 @@ export class App extends React.Component<any, IAppState> {
       </Switch>
       </div>
       
-      {  <Message writerid={G?.writerid}/>}
+      {G && <Message writer={G}/>}
     </Router>
     </>
     );
