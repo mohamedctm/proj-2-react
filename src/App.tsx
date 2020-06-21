@@ -15,6 +15,7 @@ import { NewUser } from './components/views/createUser';
 import { InboxPage } from './components/views/inboxPage';
 import { ComposeMessage } from './components/views/ComposeMessage';
 import Message from './components/default/messageContainer';
+import { SingleMessage } from './components/views/SingleMessage';
 
 
 
@@ -102,6 +103,7 @@ export class App extends React.Component<any, IAppState> {
         {G && <Route exact path="/inbox/compose">
           <ComposeMessage composer={G}/>
           </Route>}
+        {G && <Route path="/inbox/message/:msgId" render={(routerProps) => <SingleMessage {...routerProps} reader={G} />} />}
         <Route><NoMatch updateUser={this.updateUser} /></Route>
       </Switch>
       </div>

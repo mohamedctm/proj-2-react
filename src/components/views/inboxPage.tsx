@@ -26,14 +26,15 @@ export class InboxPage extends React.Component<IInboxPageProps, IInboxPageState>
 
     async componentDidMount() {
         const myInbox : Inbox = await openInbox(this.props.owner.writerid);
+        const sortedMessages = myInbox.messages.sort((a : any, b : any) => b.id - a.id);
         this.setState({
-            messages: myInbox.messages
+            messages: sortedMessages
         });
     }
 
-    generateMessageCards = (msgs : Message[]) : any => {
-        return msgs.map((msg : Message) => {
-            return <MessageCard key={msg.messageId} message={msg}/>
+    generateMessageCards = (msgs : any) : any => {
+        return msgs.map((msg : any) => {
+            return <MessageCard key={msg.id} message={msg}/>
         });
     }
 
