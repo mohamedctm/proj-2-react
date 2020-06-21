@@ -14,7 +14,7 @@ export class MessageCard extends React.Component<IMessageCardProps, any> {
                 <div>
                     <span className="profile"><NavLink to="/inbox/compose">Reply</NavLink></span>
                     <span>{this.props.message.sender.firstname + ' ' + this.props.message.sender.lastname}</span>
-                    <span>{this.props.message.sender.username}</span>
+                    <span><b>{this.props.message.sender.username}</b></span>
                     <span className="id">{this.props.message.messageStatus}</span>
                 </div>
                 <div>{this.props.message.messageText}</div>
