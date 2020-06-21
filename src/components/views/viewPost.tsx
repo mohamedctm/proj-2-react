@@ -45,7 +45,8 @@ export  class Postview extends React.Component<any,any> {
       this.setState({
         thereIsApost: false
       });
-      console.log(statusz);
+      this.props.action()
+
   }
   attemptUpdate = async (event: any) => {
     event.preventDefault();
@@ -61,7 +62,7 @@ export  class Postview extends React.Component<any,any> {
         title1: this.state.title,
         keys1: this.state.keys,
       });
-      console.log(levelup);
+      this.props.action()
     
     } catch (error) {
       this.setState({
