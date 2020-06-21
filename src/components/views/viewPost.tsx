@@ -1,7 +1,8 @@
 import React from 'react';
-import { getPostById, updatePost } from '../../api/LibraryClient';
+import { getPostById, updatePost, deletingPost } from '../../api/LibraryClient';
 import { FormGroup, Input, Form } from 'reactstrap';
 import { Post } from '../../models/Post';
+
 
 
 export  class Postview extends React.Component<any,any> {
@@ -27,6 +28,7 @@ export  class Postview extends React.Component<any,any> {
         date1: this.props.dateSubmitted,
         status1: this.props.status,
         published: this.props.published,
+        thereIsApost:true,
         }
 
     }
@@ -35,7 +37,17 @@ export  class Postview extends React.Component<any,any> {
             data:  await getPostById(1),
         });
   }
+  deletePost = async (event: any) => {
+    event.preventDefault();
+    console.log(event);
+    
+      const statusz : Post = await deletingPost(this.props.id);
+      this.setState({
+        thereIsApost: false
+      });
+      this.props.action()
 
+  }
   attemptUpdate = async (event: any) => {
     event.preventDefault();
     console.log(event);
@@ -50,7 +62,7 @@ export  class Postview extends React.Component<any,any> {
         title1: this.state.title,
         keys1: this.state.keys,
       });
-      console.log(levelup);
+      this.props.action()
     
     } catch (error) {
       this.setState({
@@ -120,7 +132,8 @@ export  class Postview extends React.Component<any,any> {
     render(){
         return(
             <>
-            <div key={Math.floor(Math.random() * 10)} className="box">
+           {this.state.thereIsApost &&  <div key={Math.floor(Math.random() * 10)} className="box">
+            {(this.state.status1 === "pending" && this.state.published === 0) &&<button className="deletePost" onClick={this.deletePost}>&times;</button>}
             <div className="boxrow dateFormat"> created: {this.state.date1}</div>  
             <div className="boxrow"><span>{this.state.status1}</span></div>  
             <div className="boxrow"><h1>{this.state.title1}</h1></div>  
@@ -128,7 +141,7 @@ export  class Postview extends React.Component<any,any> {
             <div className="boxrow">
                 <button onClick={this.enable}>Preview</button>
         {(this.state.published === 0) && <button onClick={this.enableE}>Edit</button>}</div>  
-          </div>
+          </div>}
           {this.state.viewPost && <div className="overlay">
             <span className="close" onClick={this.disable}>&times;</span>
             <div className="viewHolder">

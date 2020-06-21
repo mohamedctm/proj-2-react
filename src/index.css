@@ -162,3 +162,14 @@ div.boxrow{padding-top:10px;order:1;width:100%;margin:.2em;border:none;display:f
                 button.pbutton{background:rgb(24, 128, 57);color:#eeffee;padding:.8em}
                 button.deletePost{position:absolute;top:-20px;right:-15px;width:22px;height:22px;background:#ee0000;
                 color:#fff;border:none;line-height:10px;padding:.4em;}
+                div.messageContainer{
+                    position:fixed;bottom:33px;right:2%;width:40vw;max-width:300px;min-width:200px;height:40vh;max-height:300px;
+                    border-top-right-radius:8px;border-top-left-radius:8px;-webkit-border-top-right-radius:8px;
+                    -webkit-border-top-left-radius:8px;
+                    border:2px solid rgb(122, 97, 129);background:#fff;
+                }
+                div.messageControler{
+                    position:fixed;bottom:1px;right:2%;width:40vw;max-width:300px;min-width:200px;height:32px;max-height:300px;
+                    border:2px solid rgb(41, 8, 55);background:rgb(115, 70, 128);
+                }
+                div.messageControler button { font-size:1.8em;height:22px;padding:0 .4em;outline:none;margin:auto .3em;line-height:22px;border:none;}

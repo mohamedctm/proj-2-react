@@ -187,11 +187,11 @@ export async function login(un: string, pw: string): Promise<User> {
     const {writerid, username, password,firstname,lastname, email, phone, permission} = response.data;
     return new User(writerid, username, password, firstname,lastname, email, phone,permission);
   } catch (e) {
-    if(e.response.status === 401 ||e.response.status === 400) {
+    if(e.response.status === 401 ||e.response.status === 400 ||e.response.status === 500) {
       throw new FailedLoginError('Failed to authenticate', un);
     } else {
       // We could throw a different custom error, this exposes a little too much to the user.
-      throw e;
+      throw e.message;
     }
   }
   

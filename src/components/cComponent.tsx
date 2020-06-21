@@ -8,13 +8,17 @@ export default class Control extends React.Component<any,any> {
 
 constructor(props:any){
     super(props);
+    this.handler = this.handler.bind(this);
     this.state = {
         data:[],
         
     }
 }
 
-async componentDidMount() {
+componentDidMount(){
+    this.handler();
+}
+async handler() {
     try {
         this.setState({
             data: await getAllUsers(),
@@ -39,7 +43,7 @@ async componentDidMount() {
                     </div>
             {this.state.data.filter((c: { writerid: number; }) => c.writerid !== this.props.writerid).map((u:User|any,x:number) =>{
                 return(
-                    <Writerview key={x} thekey={x} id={u.writerid} username={u.username} password={u.password}
+                    <Writerview action={this.handler} key={x} thekey={x} id={u.writerid} username={u.username} password={u.password}
                     firstname={u.firstname} lastname={u.lastname} email={u.email} phone={u.phone} permission={u.permission}/>
                     )      
                     })         

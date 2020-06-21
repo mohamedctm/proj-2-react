@@ -10,6 +10,8 @@ export default class Posts extends React.Component<any,any> {
 
 constructor(props:any){
     super(props);
+    this.handler = this.handler.bind(this);
+
     this.state = {
         data: [],
         userinfo: [],
@@ -25,10 +27,14 @@ constructor(props:any){
         lastname1:'',
         email: '',
         phone:'',
+        
     }
 }
 
-async componentDidMount() {
+componentDidMount(){
+    this.handler();
+}
+async handler() {
     try {
         this.setState({
             data: await posts(this.props.writerid),
@@ -167,7 +173,7 @@ setUsername= (pw: any) => {
                     <Postview key={x} thekey={x} id={u.postId} author={u.author} postTitle={u.postTitle}
                     postDescription={u.postDescription} postText={u.postText} keywords={u.keyWords} status={u.status}
                     resolver={u.resolver} dateSubmitted={u.dateSubmitted} postType={u.postType} postField={u.postField}
-                    published={u.published} />
+                    published={u.published} action={this.handler} />
                     )      
                     })         
         )}
@@ -176,7 +182,7 @@ setUsername= (pw: any) => {
                     <Postview key={x} thekey={x} id={u.postId} author={u.author} postTitle={u.postTitle}
                     postDescription={u.postDescription} status={u.status} postType={u.postType} postField={u.postField}
                     resolver={u.resolver} dateSubmitted={u.dateSubmitted} postText={u.postText} keywords={u.keyWords}
-                    published={u.published} />
+                    published={u.published} action={this.handler} />
                     )      
                     })         
         )}
@@ -185,7 +191,7 @@ setUsername= (pw: any) => {
                     <Postview key={x} thekey={x} id={u.postId} author={u.author} postTitle={u.postTitle}
                     postDescription={u.postDescription} status={u.status} postType={u.postType} postField={u.postField}
                     resolver={u.resolver} dateSubmitted={u.dateSubmitted} postText={u.postText} keywords={u.keyWords}
-                    published={u.published} />
+                    published={u.published} action={this.handler} />
                     )      
                     })         
         )}

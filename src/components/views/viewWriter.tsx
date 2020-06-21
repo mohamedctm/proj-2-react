@@ -126,7 +126,7 @@ export  class Writerview extends React.Component<any,any> {
             <span className="id">{this.props.id}</span>
             </div>
             <div>
-            { (this.state.permissionx !== 1) &&<button onClick={this.deletethis}>Delete</button>}
+            { (this.state.permissionx === 3) &&<button onClick={this.deletethis}>Delete</button>}
             { !this.state.views &&<button onClick={this.view}>update information</button>}
             {this.state.views &&<button onClick={this.unview}>cancel</button>}
             </div>
