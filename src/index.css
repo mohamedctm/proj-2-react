@@ -172,6 +172,26 @@ div.boxrow{padding-top:10px;order:1;width:100%;margin:.2em;border:none;display:f
                     position:fixed;bottom:1px;right:2%;width:40vw;max-width:360px;min-width:200px;height:32px;max-height:60px;
                     border:2px solid rgb(41, 8, 55);background:rgb(115, 70, 128);
                 }
+                div.messageControler button { font-size:1.8em;height:22px;padding:0 .4em;outline:none;margin:auto .3em;line-height:22px;border:none;}
+
+                /* Messages */
+                #purple-post {
+                    color: rgb(115, 70, 128);
+                    border-bottom: 1px groove black;
+                }
+
+                .read-mess {
+                    background: #fff;
+                }
+
+                .profile a {
+                    color: #fff;
+                }
+
+                .gray-prof {
+                    background: #999;
+                }
+
                 div.messageControler button {order:1;font-size:1.8em;height:22px;padding:0 .4em;outline:none;margin:auto .3em;line-height:22px;border:none;}
                 div.chatBox{background:#fff;padding:.2em;width:94%;display:flex;-webkit-display:flex;
                 flex-direction:column;-webkit-flex-direction:column;margin:.5em auto;}
@@ -191,3 +211,4 @@ div.boxrow{padding-top:10px;order:1;width:100%;margin:.2em;border:none;display:f
                 div.chatBox > div >span.statuss > span.b {font-size:2em;}
                 div.chatBox > div >span.statuss:hover {background:#eaeaea}
                 .blue{color:#3366aa;font-weight:bolder;}
+
