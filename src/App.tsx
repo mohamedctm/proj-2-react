@@ -12,7 +12,7 @@ import Editor from './components/eComponent';
 import Control from './components/cComponent';
 import { NewPost } from './components/views/createPost';
 import { NewUser } from './components/views/createUser';
-import Message from './components/default/messageContainer';
+
 
 
 
@@ -94,6 +94,12 @@ export class App extends React.Component<any, IAppState> {
       { (G?.permission === 1) && <Route path='/control'  exact >
         <Control userRole={G.permission} id={this.state.id} writerid={G?.writerid} />
         </Route>}
+        {G && <Route exact path="/inbox">
+          <InboxPage owner={G} />
+          </Route>}
+        {G && <Route exact path="/inbox/compose">
+          <ComposeMessage composer={G}/>
+          </Route>}
         <Route><NoMatch updateUser={this.updateUser} /></Route>
       </Switch>
       </div>

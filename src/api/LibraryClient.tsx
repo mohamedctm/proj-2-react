@@ -3,11 +3,13 @@ import { User } from '../models/User';
 
 import { FailedLoginError } from '../errors/FailedLoginError';
 import { Post } from '../models/Post';
+import { Inbox } from '../models/Inbox';
+import { Message } from '../models/Message';
 
 
 const libraryClient = axios.create({
   // baseURL: 'http://54.174.125.219:3001/',
-  baseURL: 'http://localhost:5000/',
+  baseURL: 'http://localhost:8081/',
   withCredentials: true,
 });
 /**************/
@@ -193,4 +195,47 @@ export async function login(un: string, pw: string): Promise<User> {
     }
   }
   
+}
+
+/* Inbox controller requests */
+
+export async function openInbox(inboxNum : number) : Promise<Inbox> {
+  const response = await libraryClient.get(`/inboxes/owner/${inboxNum}`);
+  const {id, messages, owner} = response.data;
+  const myInbox : Inbox = new Inbox(id, owner, messages);
+  console.log(myInbox);
+  return myInbox;
+}
+
+export async function getAllInboxes() : Promise<Inbox[]> {
+  const response = await libraryClient.get('/inboxes/all');
+  const boxesArr : Inbox[] = response.data.map((box : any) => {
+    const {id, messages, owner} = box;
+    return new Inbox(id, owner, messages);
+  });
+  console.log("boxesArr", boxesArr);
+  return boxesArr;
+  
+}
+
+export async function addInbox(userId : number) : Promise<Inbox> {
+  const configObj = {id: 0, ownerId: userId}
+  const response = await libraryClient.post('/inboxes/new', configObj)
+  const newInbox : Inbox = new Inbox(response.data.id, response.data.owner, response.data.messages);
+  return newInbox;
+  
+}
+
+/* Message Controller requests */
+export async function addNewMessage(userId : number, msgText : string, recipientId : number) : Promise<Message> {
+  const configObj = {senderId: userId, messageText: msgText, messageStatus: "unread", inboxId: recipientId};
+  const response = await libraryClient.post('/messages/new', configObj);
+  const {
+    id,
+    sender,
+    messageText,
+    messageStatus,
+    inbox
+  } = response.data;
+  return new Message(id, sender, messageText, messageStatus, inbox);
 }
