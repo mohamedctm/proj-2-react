@@ -218,6 +218,15 @@ export async function getAllInboxes() : Promise<Inbox[]> {
   
 }
 
+export async function addInbox(userId : number) : Promise<Inbox> {
+  const configObj = {id: 0, ownerId: userId}
+  const response = await libraryClient.post('/inboxes/new', configObj)
+  const newInbox : Inbox = new Inbox(response.data.id, response.data.owner, response.data.messages);
+  return newInbox;
+  
+}
+
+/* Message Controller requests */
 export async function addNewMessage(userId : number, msgText : string, recipientId : number) : Promise<Message> {
   const configObj = {senderId: userId, messageText: msgText, messageStatus: "unread", inboxId: recipientId};
   const response = await libraryClient.post('/messages/new', configObj);
