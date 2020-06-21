@@ -4,6 +4,7 @@ import { User } from '../models/User';
 import { FailedLoginError } from '../errors/FailedLoginError';
 import { Post } from '../models/Post';
 import { Inbox } from '../models/Inbox';
+import { Message } from '../models/Message';
 
 
 const libraryClient = axios.create({
@@ -196,8 +197,36 @@ export async function login(un: string, pw: string): Promise<User> {
   
 }
 
-export async function openInbox(inboxNum : number) : Promise<Inbox | any> {
-  const response = await libraryClient.get(`/inboxes/${inboxNum}`);
-  console.log(response.data);
+/* Inbox controller requests */
+
+export async function openInbox(inboxNum : number) : Promise<Inbox> {
+  const response = await libraryClient.get(`/inboxes/owner/${inboxNum}`);
+  const {id, messages, owner} = response.data;
+  const myInbox : Inbox = new Inbox(id, owner, messages);
+  console.log(myInbox);
+  return myInbox;
+}
+
+export async function getAllInboxes() : Promise<Inbox[]> {
+  const response = await libraryClient.get('/inboxes/all');
+  const boxesArr : Inbox[] = response.data.map((box : any) => {
+    const {id, messages, owner} = box;
+    return new Inbox(id, owner, messages);
+  });
+  console.log("boxesArr", boxesArr);
+  return boxesArr;
   
+}
+
+export async function addNewMessage(userId : number, msgText : string, recipientId : number) : Promise<Message> {
+  const configObj = {senderId: userId, messageText: msgText, messageStatus: "unread", inboxId: recipientId};
+  const response = await libraryClient.post('/messages/new', configObj);
+  const {
+    id,
+    sender,
+    messageText,
+    messageStatus,
+    inbox
+  } = response.data;
+  return new Message(id, sender, messageText, messageStatus, inbox);
 }
