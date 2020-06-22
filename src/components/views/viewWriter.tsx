@@ -30,7 +30,7 @@ export  class Writerview extends React.Component<any,any> {
     }
     deletethis = async () => {
       try {
-        const levelup : User = await deleteUser(this.state.iduser);
+        const levelup : User = await deleteUser(this.props.iduser);
         this.setState({
           exists: false,      
         });

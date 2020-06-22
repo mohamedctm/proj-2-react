@@ -60,6 +60,7 @@ replayoff = () =>{
       openReplay: false,
       msgText: '',
   });
+  this.props.action();
 
 }
 setText= (pw: any) => {
@@ -74,12 +75,12 @@ setText= (pw: any) => {
             
             { !this.state.openReplay && <div className="chatBox">
               <div>
-                <span className="statuss" onClick={this.replayon}> conversation between you and {this.state.sender.lastname} <span className="b">&#8250;</span></span>
+                <span className="statuss" onClick={this.replayon}>  You and {this.state.sender.username} conversation  <span className="b">&#8250;</span></span>
               </div> </div>}
               { this.state.openReplay && 
                 <div className="chatBox"> <div>
                   <button onClick={this.replayoff}><span className="b">&#8249;</span></button>
-                <span className="statuss">{this.state.sender.writerid}</span>
+                <span>{this.state.sender.writerid}</span>
                 
               </div>
               <p><span className="blue">{this.state.sender.username} :</span><br/>{this.state.messageText}</p>

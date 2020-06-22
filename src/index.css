@@ -173,8 +173,8 @@ div.boxrow{padding-top:10px;order:1;width:100%;margin:.2em;border:none;display:f
                     border:2px solid rgb(41, 8, 55);background:rgb(115, 70, 128);
                 }
                 div.messageControler button {order:1;font-size:1.8em;height:22px;padding:0 .4em;outline:none;margin:auto .3em;line-height:22px;border:none;}
-                div.chatBox{background:#fff;padding:.2em;width:94%;display:flex;-webkit-display:flex;
-                flex-direction:column;-webkit-flex-direction:column;margin:.5em auto;}
+                div.chatBox{background:#fff;padding:.1em .3em;width:90%;display:flex;-webkit-display:flex;
+                flex-direction:column;-webkit-flex-direction:column;margin:1em auto;}
                 div.chatBox > div{background:#fff;padding:.2em;width:94%;display:flex;-webkit-display:flex;
                     flex-direction:row;-webkit-flex-direction:row;margin:0 auto;justify-content: space-between;-webkit-justify-content:space-between;}
                 div.chatBox p{order:1;margin:.5em auto;color:#333;font-size:.75em; word-spacing:.3em;line-height:1.6em}
@@ -187,7 +187,7 @@ div.boxrow{padding-top:10px;order:1;width:100%;margin:.2em;border:none;display:f
                     border-radius:4px;-webkit-border-radius:4px;padding:.2em;width:100%;border:1px solid #a1a1a1;}
                 div.chatBox > p >  form  textarea {margin:0;border:none;font-size:.95em;order:1;max-height:30px;height:30px;max-height:30px;flex-grow:1;padding:0;}
                 div.chatBox > p >  form > input[type=submit] {order:1;font-size:2em;width:40px;height:40px;background:#fff;border:1px solid #d1d1d1}
-                div.chatBox > div >span.statuss {cursor:pointer;font-weight:bolder;font-size:.9em;text-align:center;width:99%}
+                div.chatBox > div >span.statuss {cursor:pointer;font-weight:bolder;font-size:.85em;text-align:center;width:99%}
                 div.chatBox > div >span.statuss > span.b {font-size:2em;}
                 div.chatBox > div >span.statuss:hover {background:#eaeaea}
                 .blue{color:#3366aa;font-weight:bolder;}

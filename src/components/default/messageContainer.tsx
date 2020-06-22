@@ -44,7 +44,9 @@ export default class Message extends React.Component<any,any> {
         return(
             <>
             { this.state.starting && <div className="messageContainer">
-            {(this.state.messages.messages.map((u:any,x:number) =>{
+            {(this.state.messages.messages.
+            filter((c:any) => c.id !== 8)
+            .map((u:any,x:number) =>{
                 return(
                     <Messageview key={x} action={this.handler} myId={this.props.writer.writerid} recieverBoxId={u.id} sender={u.sender} messageText={u.messageText} messageStatus={u.messageStatus}/>
                     )      
