@@ -9,7 +9,7 @@ import { Message } from '../models/Message';
 
 const libraryClient = axios.create({
   // baseURL: 'http://54.174.125.219:3001/',
-  baseURL: 'http://localhost:3001/',
+  baseURL: 'http://localhost:8081/',
   withCredentials: true,
 });
 /**************/
@@ -218,6 +218,7 @@ export async function getAllInboxes() : Promise<Inbox[]> {
   
 }
 
+/* Should be implemented when new user is created */
 export async function addInbox(userId : number) : Promise<Inbox> {
   const configObj = {id: 0, ownerId: userId}
   const response = await libraryClient.post('/inboxes/new', configObj)
@@ -230,6 +231,18 @@ export async function addInbox(userId : number) : Promise<Inbox> {
 export async function addNewMessage(userId : number, msgText : string, recipientId : number) : Promise<Message> {
   const configObj = {senderId: userId, messageText: msgText, messageStatus: "unread", inboxId: recipientId};
   const response = await libraryClient.post('/messages/new', configObj);
+  const {
+    id,
+    sender,
+    messageText,
+    messageStatus,
+    inbox
+  } = response.data;
+  return new Message(id, sender, messageText, messageStatus, inbox);
+}
+
+export async function readMessage(msgId : number) : Promise<Message> {
+  const response = await libraryClient.patch(`/messages/${msgId}`);
   const {
     id,
     sender,

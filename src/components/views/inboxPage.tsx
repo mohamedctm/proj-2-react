@@ -13,6 +13,8 @@ interface IInboxPageProps {
 
 interface IInboxPageState {
     messages : Message[];
+    intervalId : any;
+    currentCount: any;
 }
 
 export class InboxPage extends React.Component<IInboxPageProps, IInboxPageState> {
@@ -20,20 +22,44 @@ export class InboxPage extends React.Component<IInboxPageProps, IInboxPageState>
     constructor(props : IInboxPageProps) {
         super(props);
         this.state = {
-            messages: []
+            messages: [],
+            intervalId: null,
+            currentCount: 60
         }
     }
 
     async componentDidMount() {
         const myInbox : Inbox = await openInbox(this.props.owner.writerid);
+        const sortedMessages = myInbox.messages.sort((a : any, b : any) => b.id - a.id);
+        let intervalId = setInterval(this.timer, 5000)
         this.setState({
-            messages: myInbox.messages
+            messages: sortedMessages,
+            intervalId: intervalId
         });
     }
 
-    generateMessageCards = (msgs : Message[]) : any => {
-        return msgs.map((msg : Message) => {
-            return <MessageCard key={msg.messageId} message={msg}/>
+    componentWillUnmount() {
+        clearInterval(this.state.intervalId);
+    }
+
+    timer = () => {
+        openInbox(this.props.owner.writerid)
+            .then((myInbox) => {
+                return myInbox.messages.sort((a : any, b : any) => b.id - a.id);
+            })
+            .then((sortedMessages) => {
+                this.setState({
+                    messages: sortedMessages,
+                    currentCount: this.state.currentCount - 5
+                });
+            })
+
+        // this.setState({ currentCount: this.state.currentCount -2 });
+    }
+
+    generateMessageCards = (msgs : any) : any => {
+        return msgs.map((msg : any) => {
+            return <MessageCard key={msg.id} message={msg}/>
         });
     }
 
@@ -44,6 +70,7 @@ export class InboxPage extends React.Component<IInboxPageProps, IInboxPageState>
                 <div className="usercontainer">
                     <div className="rowss">
                         <div>
+                            {/* <span className="profile">{this.state.currentCount}</span> */}
                             <label className="plus"><NavLink to="/inbox/compose">+</NavLink></label>
                         </div>
                     </div>

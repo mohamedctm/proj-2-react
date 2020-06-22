@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Switch, Route, Redirect } from 'react-router-dom';
 import { Form, FormGroup, Label, Input } from 'reactstrap';
 import { Inbox } from '../../models/Inbox';
 import { getAllInboxes, addNewMessage } from '../../api/LibraryClient';
@@ -13,6 +13,7 @@ interface IComposeMessageState {
     inboxes : Inbox[];
     recipientInboxId : number;
     msgText : string;
+    success : boolean;
 }
 
 export class ComposeMessage extends React.Component<IComposeMessageProps, IComposeMessageState> {
@@ -22,7 +23,8 @@ export class ComposeMessage extends React.Component<IComposeMessageProps, ICompo
         this.state = {
             inboxes: [],
             recipientInboxId: 0,
-            msgText: ""
+            msgText: "",
+            success: false
         }
     }
 
@@ -55,35 +57,44 @@ export class ComposeMessage extends React.Component<IComposeMessageProps, ICompo
         } finally {
             this.setState({
                 recipientInboxId: 0,
-                msgText: ""
+                msgText: "",
+                success: true
             });
         }
     }
 
     render() {
-        console.log("ComposeMessage State: ", this.state);
-        
-        return (
-            <div>
-                <NavLink to="/inbox"><button>Cancel</button></NavLink>
-                <Form onSubmit={this.handleSubmit}>
-                    <h3></h3>
-                    <span className="tag">New</span>
-                    <FormGroup>
-                        <Label for="inbox">Recipient</Label>
-                        <select name="inbox" onChange={this.handleChange} value={this.state.recipientInboxId} required>
-                            <option>(Select)</option>
-                            {this.generateRecipients(this.state.inboxes)}
-                        </select>
-                    </FormGroup>
-                    <FormGroup>
-                        <Input type="textarea" name="messageText" placeholder="write your message here" onChange={this.handleChange} value={this.state.msgText}/>
-                    </FormGroup>
-                    <FormGroup className="notdiv">
-                        <Input type="submit" value="Send" />
-                    </FormGroup>
-                </Form>
-            </div>
-        );
+        if (!this.state.success) {
+            return (
+                <div>
+                    <NavLink to="/inbox"><button>Cancel</button></NavLink>
+                    <Form onSubmit={this.handleSubmit}>
+                        <h3></h3>
+                        <span className="tag">New</span>
+                        <FormGroup>
+                            <Label for="inbox">Recipient</Label>
+                            <select name="inbox" onChange={this.handleChange} value={this.state.recipientInboxId} required>
+                                <option>(Select)</option>
+                                {this.generateRecipients(this.state.inboxes)}
+                            </select>
+                        </FormGroup>
+                        <FormGroup>
+                            <Input type="textarea" name="messageText" placeholder="write your message here" onChange={this.handleChange} value={this.state.msgText}/>
+                        </FormGroup>
+                        <FormGroup className="notdiv">
+                            <Input type="submit" value="Send" />
+                        </FormGroup>
+                    </Form>
+                </div>
+            );
+        } else {
+            return (
+                <Switch>
+                    <Route>
+                        <Redirect to="/inbox" />
+                    </Route>
+                </Switch>
+            );
+        }
     }
 }
